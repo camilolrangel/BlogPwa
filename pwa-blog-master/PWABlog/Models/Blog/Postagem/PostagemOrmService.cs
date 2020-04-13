@@ -21,5 +21,10 @@ namespace PWABlog.Models.Blog.Postagem
                 .Include(p => p.Comentarios)
                 .ToList();
         }
+
+        public List<PostagemEntity> ObterPostagensPopulares()
+        {
+            return _databaseContext.Postagens.Include(p => p.Categoria).ToList();
+        }
     }
 }

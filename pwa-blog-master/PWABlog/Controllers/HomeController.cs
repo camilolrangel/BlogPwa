@@ -22,21 +22,22 @@ namespace PWABlog.Controllers
             ILogger<HomeController> logger,
             CategoriaOrmService categoriaOrmService,
             PostagemOrmService postagemOrmService
-        ){
+        )
+        {
             _logger = logger;
             _categoriaOrmService = categoriaOrmService;
             _postagemOrmService = postagemOrmService;
         }
 
         public IActionResult Index()
-        {   
+        {
             // Instanciar a ViewModel
             HomeIndexViewModel model = new HomeIndexViewModel();
             model.TituloPagina = "Página Home";
-            
+
             // Alimentar a lista de postagens que serão exibidas na view
             List<PostagemEntity> listaPostagens = _postagemOrmService.ObterPostagens();
-            
+
             foreach (PostagemEntity postagem in listaPostagens)
             {
                 PostagemHomeIndex postagemHomeIndex = new PostagemHomeIndex();
@@ -45,14 +46,14 @@ namespace PWABlog.Controllers
                 postagemHomeIndex.Categoria = postagem.Categoria.Nome;
                 postagemHomeIndex.NumeroComentarios = postagem.Comentarios.Count.ToString();
                 postagemHomeIndex.PostagemId = postagem.Id.ToString();
-                
+
                 // Obter última revisão
                 RevisaoEntity ultimaRevisao = postagem.Revisoes.OrderByDescending(o => o.DataCriacao).FirstOrDefault();
                 if (ultimaRevisao != null)
                 {
                     postagemHomeIndex.Data = ultimaRevisao.DataCriacao.ToLongDateString();
                 }
-                
+
                 model.Postagens.Add(postagemHomeIndex);
             }
 
@@ -64,32 +65,42 @@ namespace PWABlog.Controllers
                 CategoriaHomeIndex categoriaHomeIndex = new CategoriaHomeIndex();
                 categoriaHomeIndex.Nome = categoria.Nome;
                 categoriaHomeIndex.CategoriaId = categoria.Id.ToString();
-                
+
                 model.Categorias.Add(categoriaHomeIndex);
-            
+
                 // Alimentar a lista de etiquetas que serão exibidas na view, a partir das etiquetas da categoria
                 foreach (EtiquetaEntity etiqueta in categoria.Etiquetas)
                 {
                     EtiquetaHomeIndex etiquetaHomeIndex = new EtiquetaHomeIndex();
                     etiquetaHomeIndex.Nome = etiqueta.Nome;
                     etiquetaHomeIndex.EtiquetaId = etiqueta.Id.ToString();
-                
+
                     model.Etiquetas.Add(etiquetaHomeIndex);
                 }
             }
-            
-            
+
+
             // Alimentar a lista de postagens populares que serão exibidas na view
             // TODO Obter lista de postagens populares
-            
-            
+            List<PostagemEntity> listaPostagensPopulares = _postagemOrmService.ObterPostagensPopulares();
+            foreach (PostagemEntity postagemPopular in listaPostagensPopulares)
+            {
+                PostagemPopularHomeIndex postagemPopularHomeIndex = new PostagemPopularHomeIndex();
+                postagemPopularHomeIndex.Titulo = postagemPopular.Titulo;
+                postagemPopularHomeIndex.PostagemId = postagemPopular.Id;
+                postagemPopularHomeIndex.Categoria = postagemPopular.Categoria.Nome;
+
+                model.PostagensPopulares.Add(postagemPopularHomeIndex);
+            }
+
+
             return View(model);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
-            return View(new ErrorViewModel {RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier});
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }
