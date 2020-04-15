@@ -23,13 +23,13 @@ namespace PWABlog.Models.Blog.Categoria
             /**********************************************************************************************************/
             
             // First = Obter a primeira categoria retornada pela consulta
-            var primeiraCategoria = _databaseContext.Categorias.First();
+            //var primeiraCategoria = _databaseContext.Categorias.First();
             
             // FirstOrDefault = Mesmo do First, porém retorna nulo caso não encontre nenhuma
-            var primeiraCategoriaOuNulo = _databaseContext.Categorias.FirstOrDefault();
+            //var primeiraCategoriaOuNulo = _databaseContext.Categorias.FirstOrDefault();
             
             // Single = Obter um único registro do banco de dados
-            var algumaCategoriaEspecifica = _databaseContext.Categorias.Single(c => c.Id == 3);
+            //var algumaCategoriaEspecifica = _databaseContext.Categorias.Single(c => c.Id == 3);
             
             // SingleOrDefault = Mesmo do Sigle, porém retorna nulo caso não encontre nenhuma
             var algumaCategoriaOuNulo = _databaseContext.Categorias.SingleOrDefault(c => c.Id == 3);
