@@ -83,7 +83,8 @@
         <div class="w3-container w3-padding">
             <h4>Postagens Populares</h4>
         </div>
-        <ul class="w3-ul w3-hoverable w3-white">
+
+        @*<ul class="w3-ul w3-hoverable w3-white">
             
             <li class="w3-padding-16">
                 <img src="https://via.placeholder.com/75/BBC9E3" alt="Image" class="w3-left w3-margin-right" style="width:50px">
@@ -106,7 +107,18 @@
                 <span class="w3-large">Mingsum</span><br>
                 <span>Lorem ipsum dipsum</span>
             </li>
-        </ul>
+        </ul>*@
+        <div class="w3-ul w3-hoverable w3-white" >
+            <p>
+                @foreach ( PostagemPopularHomeIndex postagemPopular in Model.PostagensPopulares)
+                {
+                    <span class="w3-large w3-light-blue w3-margin-bottom">@postagemPopular.Titulo</span><br />
+                    <span>@postagemPopular.Categoria</span>
+
+                }
+            </p>
+        </div>
+
     </div>
 
     <!-- Sobre Mim -->
