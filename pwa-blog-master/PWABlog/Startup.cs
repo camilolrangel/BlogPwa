@@ -62,11 +62,38 @@ namespace PWABlog
 
             app.UseAuthorization();
 
+            //Configuração de Rotas
             app.UseEndpoints(endpoints =>
             {
+                /*
+                    endpoints.MapControllerRoute(
+                        name: "default",
+                        pattern: "{controller=Home}/{action=Index}/{id?}");
+                );
+                */
+
+                //Rotas da Área Comum
+
                 endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+
+                    name: "comum",
+
+                    pattern: "/",
+
+                    defaults: new { controller = "Home", action = "Index" }
+             );
+
+                //Rotas de Área Administrativa
+
+                endpoints.MapControllerRoute(
+
+                    name: "admin.categorias",
+
+                    pattern: "admin/categorias/{action}/{id?}",
+
+                    defaults: new {controller = "AdminCategorias", action = "Listar"}
+
+             );
             });
         }
     }

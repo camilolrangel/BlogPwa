@@ -82,5 +82,45 @@ namespace PWABlog.Models.Blog.Autor
             return _databaseContext.Autores.Where(c => c.Nome.Contains(nomeAutor)).ToList();
 
         }
+
+
+        public AutorEntity CriarAutor(string nome)
+        {
+            var novoAutor = new AutorEntity { Nome = nome };
+            _databaseContext.Autores.Add(novoAutor);
+            _databaseContext.SaveChanges();
+
+            return novoAutor;
+        }
+
+        public AutorEntity EditarAutor(int id, string nome)
+        {
+            var autor = _databaseContext.Autores.Find(id);
+
+            if (autor == null)
+            {
+                throw new Exception("Autores não encontrada!");
+            }
+
+            autor.Nome = nome;
+            _databaseContext.SaveChanges();
+
+            return autor;
+        }
+
+        public bool RemoverAutor(int id)
+        {
+            var autor = _databaseContext.Autores.Find(id);
+
+            if (autor == null)
+            {
+                throw new Exception("Autor não encontrada!");
+            }
+
+            _databaseContext.Autores.Remove(autor);
+            _databaseContext.SaveChanges();
+
+            return true;
+        }
     }
 }

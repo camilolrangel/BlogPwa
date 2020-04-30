@@ -1,6 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PWABlog", "PWABlog\PWABlog.csproj", "{D1E7DA92-9C8A-415F-9229-EDFBDF10FABC}"
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30002.166
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PWABlog", "PWABlog\PWABlog.csproj", "{D1E7DA92-9C8A-415F-9229-EDFBDF10FABC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -12,5 +15,11 @@ Global
 		{D1E7DA92-9C8A-415F-9229-EDFBDF10FABC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D1E7DA92-9C8A-415F-9229-EDFBDF10FABC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D1E7DA92-9C8A-415F-9229-EDFBDF10FABC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2CD7B5EE-9577-4AA9-9262-81C2EBD3450C}
 	EndGlobalSection
 EndGlobal
