@@ -8,8 +8,10 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using PWABlog.Models;
 using PWABlog.Models.Blog.Categoria;
 using PWABlog.Models.Blog.Postagem;
+using PWABlog.Models.ControleDeAcesso;
 
 namespace PWABlog
 {
@@ -25,10 +27,15 @@ namespace PWABlog
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            using(var databaseContext = new DatabaseContext())
+
+            //Adicionar o Serviço do Mecanismo de Controle de Acesso
+
+            services.AddIdentity<Usuario, Papel>(options =>
             {
-                databaseContext.Database.EnsureCreated();
-            }
+                options.User.RequireUniqueEmail = true;
+                options.Password.RequiredLength = 6;
+
+            }).AddEntityFrameworkStores<DatabaseContext>();
             
             // Adicionar o serviço do banco de dados
             services.AddDbContext<DatabaseContext>();
@@ -58,11 +65,13 @@ namespace PWABlog
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
-            app.UseRouting();
-
-            app.UseAuthorization();
 
             //Configuração de Rotas
+            app.UseRouting();
+
+            app.UseAuthentication();
+            app.UseAuthorization();
+
             app.UseEndpoints(endpoints =>
             {
                 /*
