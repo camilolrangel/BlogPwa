@@ -95,5 +95,47 @@ namespace PWABlog.Models.Blog.Postagem.Revisao
             return _databaseContext.Categorias.Where(c => c.Nome.Contains(nomeCategoria)).ToList();
 
         }*/
+
+        public RevisaoEntity CriarRevisao(PostagemEntity postagem, string texto, int versao, DateTime dataCriacao)
+        {
+            var novaRevisao = new RevisaoEntity { Postagem = postagem, Texto = texto, Versao = versao, DataCriacao = dataCriacao };
+            _databaseContext.Revisoes.Add(novaRevisao);
+            _databaseContext.SaveChanges();
+
+            return novaRevisao;
+        }
+
+        public RevisaoEntity EditarRevisão(int id, PostagemEntity postagem, string texto, int versao, DateTime dataCriacao)
+        {
+            var revisao = _databaseContext.Revisoes.Find(id);
+
+            if (revisao == null)
+            {
+                throw new Exception("Revisão não encontrada");
+            }
+            revisao.Postagem = postagem;
+            revisao.Texto = texto;
+            revisao.Versao = versao;
+            revisao.DataCriacao = dataCriacao;
+
+            _databaseContext.SaveChanges();
+
+            return revisao;
+        }
+
+        public bool RemoverRevisao(int id)
+        {
+            var revisao = _databaseContext.Revisoes.Find(id);
+            if (revisao == null)
+            {
+                throw new Exception("Revisão não encontrada");
+            }
+            _databaseContext.Revisoes.Remove(revisao);
+            _databaseContext.SaveChanges();
+
+            return true;
+
+        }
     }
 }
+
