@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace PWABlog.ViewModels.Home
 {
@@ -11,7 +12,8 @@ namespace PWABlog.ViewModels.Home
         public ICollection<CategoriaHomeIndex> Categorias { get; set; }
         
         public ICollection<EtiquetaHomeIndex> Etiquetas { get; set; }
-        
+        public ICollection<PostagemHomeIndex> DataPostagem { get; set; }
+
         public ICollection<PostagemPopularHomeIndex> PostagensPopulares { get; set; }
 
         
@@ -26,6 +28,7 @@ namespace PWABlog.ViewModels.Home
 
     public class PostagemHomeIndex
     {
+        internal DateTime DataPostagem;
         public string Titulo { get; set; }
         public string Data { get; set; }
         public string Descricao { get; set; }

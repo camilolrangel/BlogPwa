@@ -22,6 +22,7 @@ namespace PWABlog.Models.Blog.Postagem
                 .Include(p => p.Categoria)
                 .Include(p => p.Revisoes)
                 .Include(p => p.Comentarios)
+                .Where(x => x.DataPostagem < DateTime.Now).ToList()
                 .ToList();
         }
 
@@ -31,16 +32,16 @@ namespace PWABlog.Models.Blog.Postagem
         }
 
         
-        public PostagemEntity CriarPostagem(string titulo, string descricao, AutorEntity autor, CategoriaEntity categoria)
+        public PostagemEntity CriarPostagem(string titulo, string descricao, AutorEntity autor, CategoriaEntity categoria, DateTime dataPostagem)
         {
-            var novaPostagem = new PostagemEntity { Titulo = titulo, Descricao = descricao, Autor = autor, Categoria = categoria };
+            var novaPostagem = new PostagemEntity { Titulo = titulo, Descricao = descricao, Autor = autor, Categoria = categoria, DataPostagem = dataPostagem };
             _databaseContext.Postagens.Add(novaPostagem);
             _databaseContext.SaveChanges();
 
             return novaPostagem;
         }
 
-        public PostagemEntity EditarPostagem(int id, string titulo, string descricao, AutorEntity autor, CategoriaEntity categoria)
+        public PostagemEntity EditarPostagem(int id, string titulo, string descricao, AutorEntity autor, CategoriaEntity categoria, DateTime dataPostagem)
         {
             var postagem = _databaseContext.Postagens.Find(id);
 
@@ -53,7 +54,9 @@ namespace PWABlog.Models.Blog.Postagem
                 postagem.Descricao = descricao;
                 postagem.Autor = autor;
                 postagem.Categoria = categoria;
-                _databaseContext.SaveChanges();
+                postagem.DataPostagem = dataPostagem;
+
+            _databaseContext.SaveChanges();
 
             return postagem;
         }

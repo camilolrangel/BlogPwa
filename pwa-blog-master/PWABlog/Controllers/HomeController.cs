@@ -4,6 +4,7 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using PWABlog.Models;
+using PWABlog.Models.Blog.Autor;
 using PWABlog.Models.Blog.Categoria;
 using PWABlog.Models.Blog.Etiqueta;
 using PWABlog.Models.Blog.Postagem;
@@ -17,16 +18,22 @@ namespace PWABlog.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly CategoriaOrmService _categoriaOrmService;
         private readonly PostagemOrmService _postagemOrmService;
+        private readonly AutorOrmService _autorOrmService;
+        private readonly EtiquetaOrmService _etiquetaOrmService;
 
         public HomeController(
             ILogger<HomeController> logger,
             CategoriaOrmService categoriaOrmService,
             PostagemOrmService postagemOrmService
+            AutorOrmService autorOrmService,
+            EtiquetaOrmService etiquetaOrmService
         )
         {
             _logger = logger;
             _categoriaOrmService = categoriaOrmService;
             _postagemOrmService = postagemOrmService;
+            _autorOrmService = autorOrmService;
+            _etiquetaOrmService = etiquetaOrmService;
         }
 
         public IActionResult Index()
@@ -46,6 +53,7 @@ namespace PWABlog.Controllers
                 postagemHomeIndex.Categoria = postagem.Categoria.Nome;
                 postagemHomeIndex.NumeroComentarios = postagem.Comentarios.Count.ToString();
                 postagemHomeIndex.PostagemId = postagem.Id.ToString();
+                postagemHomeIndex.DataPostagem = postagem.DataPostagem;
 
                 // Obter última revisão
                 RevisaoEntity ultimaRevisao = postagem.Revisoes.OrderByDescending(o => o.DataCriacao).FirstOrDefault();

@@ -54,10 +54,11 @@ namespace PWABlog.Controllers.Admin
                 var descricao = request.Descricao;
                 var autor = request.Autor;
                 var categoria = request.Categoria;
+                var dataPostagem = request.DataPostagem;
 
             try
                 {
-                    _postagemOrmService.CriarPostagem(titulo, descricao, autor, categoria);
+                    _postagemOrmService.CriarPostagem(titulo, descricao, autor, categoria, dataPostagem);
                 }
                 catch (Exception exception)
                 {
@@ -86,10 +87,11 @@ namespace PWABlog.Controllers.Admin
                 var descricao = request.Descricao;
                 var autor = request.Autor;
                 var categoria = request.Categoria;
+                var dataPostagem = request.DataPostagem;
 
             try
                 {
-                    _postagemOrmService.EditarPostagem(id, titulo, descricao, autor, categoria);
+                    _postagemOrmService.EditarPostagem(id, titulo, descricao, autor, categoria,dataPostagem);
                 }
                 catch (Exception exception)
                 {
