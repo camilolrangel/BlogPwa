@@ -9,7 +9,7 @@ using PWABlog;
 namespace PWABlog.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20200501231240_EntidadesIniciais")]
+    [Migration("20200511154859_EntidadesIniciais")]
     partial class EntidadesIniciais
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -234,6 +234,9 @@ namespace PWABlog.Migrations
 
                     b.Property<int?>("CategoriaId")
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("DataPostagem")
+                        .HasColumnType("datetime(6)");
 
                     b.Property<string>("Descricao")
                         .IsRequired()

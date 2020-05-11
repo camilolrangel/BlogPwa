@@ -24,7 +24,7 @@ namespace PWABlog.Controllers
         public HomeController(
             ILogger<HomeController> logger,
             CategoriaOrmService categoriaOrmService,
-            PostagemOrmService postagemOrmService
+            PostagemOrmService postagemOrmService,
             AutorOrmService autorOrmService,
             EtiquetaOrmService etiquetaOrmService
         )

@@ -14,8 +14,8 @@ namespace PWABlog.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(maxLength: 254, nullable: true),
-                    NormalizedName = table.Column<string>(maxLength: 254, nullable: true),
+                    Name = table.Column<string>(maxLength: 256, nullable: true),
+                    NormalizedName = table.Column<string>(maxLength: 256, nullable: true),
                     ConcurrencyStamp = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -29,10 +29,10 @@ namespace PWABlog.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    UserName = table.Column<string>(maxLength: 254, nullable: true),
-                    NormalizedUserName = table.Column<string>(maxLength: 254, nullable: true),
-                    Email = table.Column<string>(maxLength: 254, nullable: true),
-                    NormalizedEmail = table.Column<string>(maxLength: 254, nullable: true),
+                    UserName = table.Column<string>(maxLength: 256, nullable: true),
+                    NormalizedUserName = table.Column<string>(maxLength: 256, nullable: true),
+                    Email = table.Column<string>(maxLength: 256, nullable: true),
+                    NormalizedEmail = table.Column<string>(maxLength: 256, nullable: true),
                     EmailConfirmed = table.Column<bool>(nullable: false),
                     PasswordHash = table.Column<string>(nullable: true),
                     SecurityStamp = table.Column<string>(nullable: true),
@@ -209,9 +209,10 @@ namespace PWABlog.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Titulo = table.Column<string>(maxLength: 128, nullable: false),
-                    Descricao = table.Column<string>(maxLength: 256, nullable: false),
+                    Descricao = table.Column<string>(maxLength: 640, nullable: false),
                     AutorId = table.Column<int>(nullable: true),
-                    CategoriaId = table.Column<int>(nullable: true)
+                    CategoriaId = table.Column<int>(nullable: true),
+                    DataPostagem = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
