@@ -97,7 +97,7 @@ namespace PWABlog.Models.Blog.Etiqueta
         }
 
 
-        public EtiquetaEntity CriarEtiqueta(string nome, int idCategoria)
+        public EtiquetaEntity CriarEtiqueta(string nome, CategoriaEntity idCategoria)
         {
             // Verificar se um nome foi passado
             if (nome == null)
@@ -120,7 +120,7 @@ namespace PWABlog.Models.Blog.Etiqueta
             return novaEtiqueta;
         }
 
-        public EtiquetaEntity EditarEtiqueta(int id, string nome, int idCategoria)
+        public EtiquetaEntity EditarEtiqueta(int id, string nome, CategoriaEntity idCategoria)
         {
             // Obter Etiqueta a Editar
             var etiqueta = _databaseContext.Etiquetas.Find(id);

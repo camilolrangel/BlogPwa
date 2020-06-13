@@ -55,7 +55,7 @@ namespace PWABlog.Controllers.Admin
 
             try
                 {
-                    _etiquetaOrmService.CriarEtiqueta(nome, categoria);
+                    _etiquetaOrmService.CriarEtiqueta(nome,categoria);
                 }
                 catch (Exception exception)
                 {
