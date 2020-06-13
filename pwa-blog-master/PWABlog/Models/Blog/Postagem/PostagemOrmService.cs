@@ -10,10 +10,12 @@ namespace PWABlog.Models.Blog.Postagem
     public class PostagemOrmService
     {
         private readonly DatabaseContext _databaseContext;
+        //private readonly RevisaoOrmService _revisaoOrmService;
 
         public PostagemOrmService(DatabaseContext databaseContext)
         {
             _databaseContext = databaseContext;
+            //_revisaoOrmService = revisaoOrmService;
         }
 
         public List<PostagemEntity> ObterPostagens()
@@ -28,15 +30,30 @@ namespace PWABlog.Models.Blog.Postagem
 
         public List<PostagemEntity> ObterPostagensPopulares()
         {
-            return _databaseContext.Postagens.Include(p => p.Categoria).ToList();
+            //return _databaseContext.Postagens.Include(p => p.Categoria).ToList();
+            return _databaseContext.Postagens
+               .Include(p => p.Autor)
+               .OrderByDescending(c => c.Comentarios.Count)
+               .Take(4)
+               .ToList();
         }
 
-        
+        public PostagemEntity ObterPostagemPorId(int idPostagem)
+        {
+            var postagem = _databaseContext.Postagens.Find(idPostagem);
+
+            return postagem;
+        }
+
+
         public PostagemEntity CriarPostagem(string titulo, string descricao, AutorEntity autor, CategoriaEntity categoria, DateTime dataPostagem)
         {
             var novaPostagem = new PostagemEntity { Titulo = titulo, Descricao = descricao, Autor = autor, Categoria = categoria, DataPostagem = dataPostagem };
             _databaseContext.Postagens.Add(novaPostagem);
             _databaseContext.SaveChanges();
+
+            // Criar a Revisão para a Postagem
+            //_revisaoOrmService.CriarRevisao(novaPostagem.Id, texto);
 
             return novaPostagem;
         }
@@ -57,6 +74,9 @@ namespace PWABlog.Models.Blog.Postagem
                 postagem.DataPostagem = dataPostagem;
 
             _databaseContext.SaveChanges();
+
+            // Criar nova Revisão para a Postagem
+            //_revisaoOrmService.CriarRevisao(postagem.Id, texto);
 
             return postagem;
         }

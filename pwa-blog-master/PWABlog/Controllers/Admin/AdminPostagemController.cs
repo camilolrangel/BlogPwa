@@ -54,7 +54,7 @@ namespace PWABlog.Controllers.Admin
                 var descricao = request.Descricao;
                 var autor = request.Autor;
                 var categoria = request.Categoria;
-                var dataPostagem = request.DataPostagem;
+                var dataPostagem = DateTime.Parse(request.DataPostagem);
 
             try
                 {
@@ -87,7 +87,7 @@ namespace PWABlog.Controllers.Admin
                 var descricao = request.Descricao;
                 var autor = request.Autor;
                 var categoria = request.Categoria;
-                var dataPostagem = request.DataPostagem;
+                var dataPostagem = DateTime.Parse(request.DataPostagem);
 
             try
                 {

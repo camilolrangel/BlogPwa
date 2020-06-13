@@ -70,5 +70,7 @@ namespace PWABlog.Models.Blog.Postagem.Classificacao
 
             return classificacao;
         }
+
+
     }
 }

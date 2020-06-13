@@ -13,6 +13,9 @@ using PWABlog.Models.Blog.Autor;
 using PWABlog.Models.Blog.Categoria;
 using PWABlog.Models.Blog.Etiqueta;
 using PWABlog.Models.Blog.Postagem;
+using PWABlog.Models.Blog.Postagem.Classificacao;
+using PWABlog.Models.Blog.Postagem.Comentario;
+using PWABlog.Models.Blog.Postagem.Revisao;
 using PWABlog.Models.ControleDeAcesso;
 
 namespace PWABlog
@@ -47,6 +50,9 @@ namespace PWABlog
             services.AddTransient<PostagemOrmService>();
             services.AddTransient<AutorOrmService>();
             services.AddTransient<EtiquetaOrmService>();
+            services.AddTransient<ClassificacaoOrmService>();
+            services.AddTransient<ComentarioOrmService>();
+            services.AddTransient<RevisaoOrmService>();
 
             // Adicionar os serviços que possibilitam o funcionamento dos controllers e das views
             services.AddControllersWithViews();

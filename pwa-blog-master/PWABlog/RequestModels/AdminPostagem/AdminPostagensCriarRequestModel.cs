@@ -16,6 +16,6 @@ namespace PWABlog.RequestModels.AdminPostagem
 
         public AutorEntity Autor { get; set; }
         public CategoriaEntity Categoria { get; set; }
-        public DateTime DataPostagem { get; set; }
+        public string DataPostagem { get; set; }
     }
 }

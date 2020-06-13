@@ -97,8 +97,22 @@ namespace PWABlog.Models.Blog.Etiqueta
         }
 
 
-        public EtiquetaEntity CriarEtiqueta(string nome, CategoriaEntity categoria)
+        public EtiquetaEntity CriarEtiqueta(string nome, int idCategoria)
         {
+            // Verificar se um nome foi passado
+            if (nome == null)
+            {
+                throw new Exception("A Etiqueta precisa de um nome!");
+            }
+
+            // Verificar existência da Categoria da Etiqueta
+            var categoria = _databaseContext.Categorias.Find(idCategoria);
+            if (categoria == null)
+            {
+                throw new Exception("A Categoria informada para a Etiqueta não foi encontrada!");
+            }
+
+            // Criar nova Etiqueta
             var novaEtiqueta = new EtiquetaEntity { Nome = nome, Categoria = categoria };
             _databaseContext.Etiquetas.Add(novaEtiqueta);
             _databaseContext.SaveChanges();
@@ -106,15 +120,23 @@ namespace PWABlog.Models.Blog.Etiqueta
             return novaEtiqueta;
         }
 
-        public EtiquetaEntity EditarEtiqueta(int id, string nome, CategoriaEntity categoria)
+        public EtiquetaEntity EditarEtiqueta(int id, string nome, int idCategoria)
         {
+            // Obter Etiqueta a Editar
             var etiqueta = _databaseContext.Etiquetas.Find(id);
-
             if (etiqueta == null)
             {
                 throw new Exception("Etiqueta não encontrada!");
             }
 
+            // Verificar existência da Categoria da Etiqueta
+            var categoria = _databaseContext.Categorias.Find(idCategoria);
+            if (categoria == null)
+            {
+                throw new Exception("A Categoria informada para a Etiqueta não foi encontrada!");
+            }
+
+            // Atualizar dados da Etiqueta
             etiqueta.Nome = nome;
             etiqueta.Categoria = categoria;
             _databaseContext.SaveChanges();
