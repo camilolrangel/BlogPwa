@@ -40,7 +40,7 @@ namespace PWABlog.Controllers
         {
             // Instanciar a ViewModel
             HomeIndexViewModel model = new HomeIndexViewModel();
-            model.TituloPagina = "Página Home";
+            
 
             // Alimentar a lista de postagens que serão exibidas na view
             List<PostagemEntity> listaPostagens = _postagemOrmService.ObterPostagens();

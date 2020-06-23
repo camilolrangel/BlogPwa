@@ -4,8 +4,7 @@
     ViewData["Title"] = "Blog PWA - 2020.1";
 }
 
-<h1>@Model.TituloPagina</h1>
-
+<!--<h1>@Model.TituloPagina</h1>-->
 <!-- Conteúdo Principal -->
 <div class="w3-col l8 s12">
     <!-- Postagens -->
@@ -62,7 +61,7 @@
             </p>
         </div>
     </div>
-    
+
     <!-- Etiquetas -->
     <div class="w3-card w3-margin">
         <div class="w3-container w3-padding">
@@ -85,32 +84,32 @@
         </div>
 
         @*<ul class="w3-ul w3-hoverable w3-white">
-            
-            <li class="w3-padding-16">
-                <img src="https://via.placeholder.com/75/BBC9E3" alt="Image" class="w3-left w3-margin-right" style="width:50px">
-                <span class="w3-large">Lorem</span><br>
-                <span>Sed mattis nunc</span>
-            </li>
-            
-            <li class="w3-padding-16">
-                <img src="https://via.placeholder.com/75/BBC9E3" alt="Image" class="w3-left w3-margin-right" style="width:50px">
-                <span class="w3-large">Ipsum</span><br>
-                <span>Praes tinci sed</span>
-            </li>
-            <li class="w3-padding-16">
-                <img src="https://via.placeholder.com/75/BBC9E3" alt="Image" class="w3-left w3-margin-right" style="width:50px">
-                <span class="w3-large">Dorum</span><br>
-                <span>Ultricies congue</span>
-            </li>
-            <li class="w3-padding-16 w3-hide-medium w3-hide-small">
-                <img src="https://via.placeholder.com/75/BBC9E3" alt="Image" class="w3-left w3-margin-right" style="width:50px">
-                <span class="w3-large">Mingsum</span><br>
-                <span>Lorem ipsum dipsum</span>
-            </li>
-        </ul>*@
-        <div class="w3-ul w3-hoverable w3-white" >
+
+                <li class="w3-padding-16">
+                    <img src="https://via.placeholder.com/75/BBC9E3" alt="Image" class="w3-left w3-margin-right" style="width:50px">
+                    <span class="w3-large">Lorem</span><br>
+                    <span>Sed mattis nunc</span>
+                </li>
+
+                <li class="w3-padding-16">
+                    <img src="https://via.placeholder.com/75/BBC9E3" alt="Image" class="w3-left w3-margin-right" style="width:50px">
+                    <span class="w3-large">Ipsum</span><br>
+                    <span>Praes tinci sed</span>
+                </li>
+                <li class="w3-padding-16">
+                    <img src="https://via.placeholder.com/75/BBC9E3" alt="Image" class="w3-left w3-margin-right" style="width:50px">
+                    <span class="w3-large">Dorum</span><br>
+                    <span>Ultricies congue</span>
+                </li>
+                <li class="w3-padding-16 w3-hide-medium w3-hide-small">
+                    <img src="https://via.placeholder.com/75/BBC9E3" alt="Image" class="w3-left w3-margin-right" style="width:50px">
+                    <span class="w3-large">Mingsum</span><br>
+                    <span>Lorem ipsum dipsum</span>
+                </li>
+            </ul>*@
+        <div class="w3-ul w3-hoverable w3-white">
             <p>
-                @foreach ( PostagemPopularHomeIndex postagemPopular in Model.PostagensPopulares)
+                @foreach (PostagemPopularHomeIndex postagemPopular in Model.PostagensPopulares)
                 {
                     <span class="w3-large w3-light-blue w3-margin-bottom">@postagemPopular.Titulo</span><br />
                     <span>@postagemPopular.Categoria</span>
@@ -131,5 +130,5 @@
             <p>Just me, myself and I, exploring the universe of uknownment. I have a heart of love and a interest of lorem ipsum and mauris neque quam blog. I want to share my world with you.</p>
         </div>
     </div>
-    
+
 </div>

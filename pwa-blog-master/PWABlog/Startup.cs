@@ -41,7 +41,16 @@ namespace PWABlog
                 options.Password.RequiredLength = 6;
 
             }).AddEntityFrameworkStores<DatabaseContext>();
-            
+
+            // Configurar o mecanismo de controle de acesso
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = "/acesso/login";
+            });
+
+            // Adicionar o serviço do controle de acesso
+            //services.AddTransient<ControleDeAcessoService>();
+
             // Adicionar o serviço do banco de dados
             services.AddDbContext<DatabaseContext>();
             
@@ -84,13 +93,7 @@ namespace PWABlog
 
             app.UseEndpoints(endpoints =>
             {
-                /*
-                    endpoints.MapControllerRoute(
-                        name: "default",
-                        pattern: "{controller=Home}/{action=Index}/{id?}");
-                );
-                */
-
+               
                 //Rotas da Área Comum
 
                 endpoints.MapControllerRoute(
@@ -101,8 +104,21 @@ namespace PWABlog
 
                     defaults: new { controller = "Home", action = "Index" }
              );
+                
+                // Rotas do Controle de Acesso
+                endpoints.MapControllerRoute(
+                    name: "controleDeAcesso",
+                    pattern: "acesso/{action}",
+                    defaults: new { controller = "ControleDeAcesso", action = "Login" }
+                );
 
                 //Rotas de Área Administrativa
+
+                endpoints.MapControllerRoute(
+                    name: "admin",
+                    pattern: "admin",
+                    defaults: new { controller = "Admin", action = "Painel" }
+                );
 
                 endpoints.MapControllerRoute(
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace PWABlog.ViewModels.Home
 {
-    public class HomeIndexViewModel
+    public class HomeIndexViewModel : ViewModelAreaComum
     {
         public string TituloPagina { get; set; }
 
@@ -19,6 +19,7 @@ namespace PWABlog.ViewModels.Home
         
         public HomeIndexViewModel()
         {
+            TituloPagina = "PWA Blog";
             Postagens = new List<PostagemHomeIndex>();
             Categorias = new List<CategoriaHomeIndex>();
             Etiquetas = new List<EtiquetaHomeIndex>();

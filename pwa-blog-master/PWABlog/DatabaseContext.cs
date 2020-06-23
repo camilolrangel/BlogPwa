@@ -33,7 +33,7 @@ namespace PWABlog
         {
             base.OnConfiguring(optionsBuilder);
 
-            optionsBuilder.UseMySql("Server=localhost; User=root; password='123456'; Database=blogpwa; Port=3366");
+            optionsBuilder.UseMySql("Server=localhost; User=root; password=''; Database=blogpwa; Port=3306");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

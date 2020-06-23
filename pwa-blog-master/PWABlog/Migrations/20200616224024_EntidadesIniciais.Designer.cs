@@ -9,8 +9,8 @@ using PWABlog;
 namespace PWABlog.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20200613213945_Aps")]
-    partial class Aps
+    [Migration("20200616224024_EntidadesIniciais")]
+    partial class EntidadesIniciais
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
