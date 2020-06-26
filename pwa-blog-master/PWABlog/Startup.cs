@@ -49,7 +49,7 @@ namespace PWABlog
             });
 
             // Adicionar o serviço do controle de acesso
-            //services.AddTransient<ControleDeAcessoService>();
+            services.AddTransient<ControleDeAcessoService>();
 
             // Adicionar o serviço do banco de dados
             services.AddDbContext<DatabaseContext>();

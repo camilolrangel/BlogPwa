@@ -2,34 +2,59 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using PWABlog.Models.Blog.Categoria;
 using PWABlog.Models.Blog.Etiqueta;
 using PWABlog.RequestModels.AdminEtiquetas;
+using PWABlog.ViewModels.Admin;
 
 namespace PWABlog.Controllers.Admin
 {
+    [Authorize]
     public class AdminEtiquetasController : Controller
     {
 
             private readonly EtiquetaOrmService _etiquetaOrmService;
+            private readonly CategoriaOrmService _categoriaOrmService;
 
-            public AdminEtiquetasController(
+        public AdminEtiquetasController(
 
-                EtiquetaOrmService etiquetaOrmService
+                EtiquetaOrmService etiquetaOrmService,
+                CategoriaOrmService categoriaOrmService
 
             )
             {
 
-                _etiquetaOrmService = etiquetaOrmService;
+            _etiquetaOrmService = etiquetaOrmService;
+            _categoriaOrmService = categoriaOrmService;
 
-            }
+        }
 
             [HttpGet]
 
             public IActionResult Listar()
             {
-                return View();
+            AdminEtiquetasListarViewModel model = new AdminEtiquetasListarViewModel();
+
+            // Obter as Etiquetas
+            var listaEtiquetas = _etiquetaOrmService.ObterEtiqueta();
+
+            // Alimentar o model com as etiquetas que serão listadas
+            foreach (var etiquetaEntity in listaEtiquetas)
+            {
+                var etiquetaAdminEtiquetas = new EtiquetaAdminEtiquetas();
+                etiquetaAdminEtiquetas.Id = etiquetaEntity.Id;
+                etiquetaAdminEtiquetas.Nome = etiquetaEntity.Nome;
+                etiquetaAdminEtiquetas.NomeCategoria = etiquetaEntity.Categoria.Nome;
+
+                model.Etiquetas.Add(etiquetaAdminEtiquetas);
             }
+
+            return View(model);
+
+
+        }
 
             [HttpGet]
 
@@ -42,10 +67,26 @@ namespace PWABlog.Controllers.Admin
 
             public IActionResult Criar()
             {
-                ViewBag.erro = TempData["erro-msg"];
+            AdminEtiquetasCriarViewModel model = new AdminEtiquetasCriarViewModel();
 
-                return View();
+            // Definir possível erro de processamento (vindo do post do criar)
+            model.Erro = (string)TempData["erro-msg"];
+
+            // Obter as Categorias
+            var listaCategorias = _categoriaOrmService.ObterCategorias();
+
+            // Alimentar o model com as categorias que serão colocadas no <select> do formulário
+            foreach (var categoriaEntity in listaCategorias)
+            {
+                var categoriaAdminEtiquetas = new CategoriaAdminEtiquetas();
+                categoriaAdminEtiquetas.IdCategoria = categoriaEntity.Id;
+                categoriaAdminEtiquetas.NomeCategoria = categoriaEntity.Nome;
+
+                model.Categorias.Add(categoriaAdminEtiquetas);
             }
+
+            return View(model);
+        }
 
             [HttpPost]
             public RedirectToActionResult Criar(AdminEtiquetasCriarRequestModel request)
