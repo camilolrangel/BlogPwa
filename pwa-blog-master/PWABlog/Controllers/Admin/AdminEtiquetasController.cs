@@ -111,11 +111,40 @@ namespace PWABlog.Controllers.Admin
 
             public IActionResult Editar(int id)
             {
-                ViewBag.id = id;
-                ViewBag.erro = TempData["erro-msg"];
+            
+            AdminEtiquetasEditarViewModel model = new AdminEtiquetasEditarViewModel();
 
-                return View();
+            // Obter etiqueta a editar
+            var etiquetaAEditar = _etiquetaOrmService.ObterEtiquetaPorId(id);
+            if (etiquetaAEditar == null)
+            {
+                return RedirectToAction("Listar");
             }
+
+            // Definir possível erro de processamento (vindo do post do criar)
+            model.Erro = (string)TempData["erro-msg"];
+
+            // Obter as Categorias
+            var listaCategorias = _categoriaOrmService.ObterCategorias();
+
+            // Alimentar o model com as categorias que serão colocadas no <select> do formulário
+            foreach (var categoriaEntity in listaCategorias)
+            {
+                var categoriaAdminEtiquetas = new CategoriaAdminEtiquetas();
+                categoriaAdminEtiquetas.IdCategoria = categoriaEntity.Id;
+                categoriaAdminEtiquetas.NomeCategoria = categoriaEntity.Nome;
+
+                model.Categorias.Add(categoriaAdminEtiquetas);
+            }
+
+            // Alimentar o model com os dados da etiqueta a ser editada
+            model.IdEtiqueta = etiquetaAEditar.Id;
+            model.NomeEtiqueta = etiquetaAEditar.Nome;
+            model.IdCategoriaEtiqueta = etiquetaAEditar.Categoria.Id;
+            model.TituloPagina += model.NomeEtiqueta;
+
+            return View(model);
+        }
 
             [HttpPost]
             public RedirectToActionResult Editar(AdminEtiquetasEditarRequestModel request)
@@ -141,11 +170,25 @@ namespace PWABlog.Controllers.Admin
 
             public IActionResult Remover(int id)
             {
-                ViewBag.id = id;
-                ViewBag.erro = TempData["erro-msg"];
+            AdminEtiquetasRemoverViewModel model = new AdminEtiquetasRemoverViewModel();
 
-                return View();
+            // Obter etiqueta a remover
+            var etiquetaARemover = _etiquetaOrmService.ObterEtiquetaPorId(id);
+            if (etiquetaARemover == null)
+            {
+                return RedirectToAction("Listar");
             }
+
+            // Definir possível erro de processamento (vindo do post do criar)
+            model.Erro = (string)TempData["erro-msg"];
+
+            // Alimentar o model com os dados da etiqueta a ser editada
+            model.IdEtiqueta = etiquetaARemover.Id;
+            model.NomeEtiqueta = etiquetaARemover.Nome;
+            model.TituloPagina += model.NomeEtiqueta;
+
+            return View(model);
+        }
 
             [HttpPost]
             public RedirectToActionResult Remover(AdminEtiquetasRemoverRequestModel request)
