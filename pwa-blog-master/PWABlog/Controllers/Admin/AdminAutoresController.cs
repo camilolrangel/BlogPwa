@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using PWABlog.Models.Blog.Autor;
 using PWABlog.RequestModels.AdminAutor;
+using PWABlog.ViewModels.Admin;
 
 namespace PWABlog.Controllers.Admin
 {
@@ -26,7 +27,25 @@ namespace PWABlog.Controllers.Admin
 
         public IActionResult Listar()
         {
-            return View();
+            AdminAutorListarViewModel model = new AdminAutorListarViewModel();
+
+            // Alimentar o model com os autores que serão listados
+
+            // Obter as Etiquetas
+            var listarAtores = _autorOrmService.ObterAutores();
+
+            foreach (var AutorEntity in listarAtores)
+            {
+                var autoresAdminAutores = new AutoresAdminAutores();
+                autoresAdminAutores.Id = AutorEntity.Id;
+                autoresAdminAutores.Nome = AutorEntity.Nome;
+
+
+                model.Autores.Add(autoresAdminAutores);
+            }
+
+
+            return View(model);
         }
 
         [HttpGet]
@@ -40,9 +59,12 @@ namespace PWABlog.Controllers.Admin
 
         public IActionResult Criar()
         {
+            AdminAutorCriarRequestModel model = new AdminAutorCriarRequestModel();
+
+            // Definir possível erro de processamento (vindo do post do criar)
             ViewBag.erro = TempData["erro-msg"];
 
-            return View();
+            return View(model);
         }
 
         [HttpPost]
@@ -67,10 +89,21 @@ namespace PWABlog.Controllers.Admin
 
         public IActionResult Editar(int id)
         {
-            ViewBag.id = id;
-            ViewBag.erro = TempData["erro-msg"];
+            AdminAutorCriarRequestModel model = new AdminAutorCriarRequestModel();
 
-            return View();
+            // Obter etiqueta a editar
+            var autorEditar = _autorOrmService.ObterAutores(id);
+            if (autorEditar == null)
+            {
+                return RedirectToAction("Listar");
+            }
+
+            // Alimentar o model com os dados da etiqueta a ser editada
+            model.Nome = autorEditar.Nome;
+            model.Id = autorEditar.Id;
+
+            return View(model);
+
         }
 
         [HttpPost]
@@ -96,8 +129,18 @@ namespace PWABlog.Controllers.Admin
 
         public IActionResult Remover(int id)
         {
-            ViewBag.id = id;
-            ViewBag.erro = TempData["erro-msg"];
+            AdminAutorCriarRequestModel model = new AdminAutorCriarRequestModel();
+
+            // Obter etiqueta a editar
+            var autorRemover = _autorOrmService.ObterAutores(id);
+            if (autorRemover == null)
+            {
+                return RedirectToAction("Listar");
+            }
+
+            // Alimentar o model com os dados da etiqueta a ser editada
+            model.Id = autorRemover.Id;
+            model.Nome = autorRemover.Nome;
 
             return View();
         }

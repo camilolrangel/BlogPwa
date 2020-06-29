@@ -14,7 +14,7 @@ namespace PWABlog.Models.Blog.Autor
             _databaseContext = databaseContext;
         }
 
-        public List<AutorEntity> ObterAutores()
+        public List<AutorEntity> ObterAutores(int id)
         {
             // INÍCIO DOS EXEMPLOS
 
