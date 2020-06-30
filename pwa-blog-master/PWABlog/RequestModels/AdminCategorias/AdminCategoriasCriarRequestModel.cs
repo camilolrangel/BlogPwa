@@ -7,6 +7,7 @@ namespace PWABlog.RequestModels.AdminCategorias
 {
     public class AdminCategoriasCriarRequestModel
     {
+        public int Id { get; set; }
         public string Nome { get; set; }
     }
 }

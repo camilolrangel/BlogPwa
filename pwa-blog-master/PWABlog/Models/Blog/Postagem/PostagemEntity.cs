@@ -22,9 +22,9 @@ namespace PWABlog.Models.Blog.Postagem
         [Required]
         public string Descricao { get; set; }
 
-        public AutorEntity Autor { get; set; }
+        public string Autor { get; set; }
 
-        public CategoriaEntity Categoria { get; set; }
+        public string Categoria { get; set; }
         public DateTime DataPostagem { get; set; }
 
         public List<PostagemEtiquetaEntity> PostagensEtiquetas { get; set; }

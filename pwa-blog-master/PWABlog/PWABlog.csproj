@@ -54,8 +54,6 @@
 
     <ItemGroup>
       <Folder Include="Migrations\" />
-      <Folder Include="Views\AdminCategorias\" />
-      <Folder Include="Views\AdminPostagens\" />
     </ItemGroup>
 
     <ItemGroup>
